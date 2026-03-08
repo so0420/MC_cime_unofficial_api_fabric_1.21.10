@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "jamku-cime-connector",
+  "version": "${version}",
+  "name": "Jamku CIME Connector",
+  "description": "CIME 후원 알림을 마인크래프트 채팅으로 전달하는 모드",
+  "authors": ["jamku"],
+  "contact": {},
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.cime.mod.CimeMod"]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "fabric-api": "*",
+    "minecraft": ">=1.21"
+  }
+}

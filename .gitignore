@@ -1,0 +1,28 @@
+# Gradle
+.gradle/
+build/
+gradle/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+bin/
+
+# Fabric
+run/
+*.log
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Wrapper (regenerate with `gradle wrapper`)
+gradlew
+gradlew.bat
+
+# Build tool
+build.bat
