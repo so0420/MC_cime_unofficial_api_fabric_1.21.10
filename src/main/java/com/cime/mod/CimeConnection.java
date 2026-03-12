@@ -222,11 +222,11 @@ public class CimeConnection {
             String type = getStringOrNull(data, "Type");
             if (!"EVENT".equals(type)) return;
 
-            String eventName = getStringOrNull(data, "EventName");
-            if (!"DONATION_CHAT".equals(eventName)) return;
-
             JsonObject attrs = data.getAsJsonObject("Attributes");
             if (attrs == null) return;
+
+            String attrType = getStringOrNull(attrs, "type");
+            if (!"DONATION_CHAT".equals(attrType)) return;
 
             String extraRaw = getStringOrNull(attrs, "extra");
             if (extraRaw == null) return;
@@ -237,7 +237,30 @@ public class CimeConnection {
 
             long amount = amtEl.getAsLong();
             String formatted = String.format("%,d", amount);
-            sendPlayerMessage("§b[CIME] " + formatted + "원 후원 받았습니다.");
+
+            // 익명 여부 확인
+            boolean anon = extra.has("anon") && extra.get("anon").getAsBoolean();
+
+            // 후원자 이름 추출
+            String donorName = "익명";
+            if (!anon && extra.has("prof") && extra.get("prof").isJsonObject()) {
+                JsonObject prof = extra.getAsJsonObject("prof");
+                if (prof.has("ch") && prof.get("ch").isJsonObject()) {
+                    JsonObject ch = prof.getAsJsonObject("ch");
+                    String name = getStringOrNull(ch, "na");
+                    if (name != null) donorName = name;
+                }
+            }
+
+            // 후원 메시지 추출
+            String msg = getStringOrNull(extra, "msg");
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("§b[CIME] ").append(donorName).append("님이 ").append(formatted).append("원 후원!");
+            if (msg != null && !msg.isEmpty()) {
+                sb.append(" §f").append(msg);
+            }
+            sendPlayerMessage(sb.toString());
 
         } catch (Exception e) {
             // 파싱 실패 시 무시

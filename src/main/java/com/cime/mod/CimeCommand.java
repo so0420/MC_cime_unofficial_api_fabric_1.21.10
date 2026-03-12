@@ -91,7 +91,7 @@ public class CimeCommand {
                                     return 0;
                                 }
                                 String formatted = String.format("%,d", amount);
-                                target.sendMessage(Text.literal("§b[CIME] " + formatted + "원 후원 받았습니다."));
+                                target.sendMessage(Text.literal("§b[CIME] 테스트유저님이 " + formatted + "원 후원! §f테스트 메시지"));
                                 ctx.getSource().sendFeedback(() -> Text.literal("§a[CIME] 테스트 후원 메시지를 " + playerName + "에게 전송했습니다."), false);
                                 return 1;
                             })
